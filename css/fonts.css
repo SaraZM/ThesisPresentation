@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni&family=Lora&display=swap');
+
+body { 
+  font-family: 'Lora', serif;
+  font-weight: 300;
+  color: #666260;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  color: #121417;
+}
+
+h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 200;
+  color: #212529;
+}
+
+h3 {
+  font-family: 'Lora', serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #212529;
+  font-size: 1.3em !important;
+}
+
+h4, h5, h6 {
+  font-family: 'Lora', serif;
+  font-weight: 300;
+  color: #003366;
+}
+
+.remark-code,
+.remark-inline-code{ 
+  font-family: 'DM Mono', monospace;
+}
+
+@media print {
+  body {
+    font-family: 'Lora', sans-serif;
+    font-weight: 300;
+}
+
+.small { 
+  font-size: 40px;
+}
+
+

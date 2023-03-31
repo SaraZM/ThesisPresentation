@@ -1,0 +1,134 @@
+---
+title: "Supp presentation: Land-use regression and spatio-temporal hierarchical models for environmental processes"
+author: "Sara Zapata-Marin"
+supervisor: "Dr Alexandra M. Schmidt"
+date: "June 8th"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/grayscale.css", "css/fonts.css"]
+    seal: false 
+    lib_dir: libs
+    nature:
+      highlightStyle: solarized-light
+      highlightLanguage: ["r", "css", "yaml"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 3)
+library(xaringanExtra)
+library(tidyverse)
+library(gganimate)
+library(leaflet)
+library(sp)
+library(raster)
+library(tidyverse)
+library(viridis)
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+ # xaringanExtra::use_progress_bar(color = "#a6b155", location = "bottom")
+```
+
+
+
+class: title-slide, center, bottom
+background-image: url("img/citytrees.jpg")
+background-position: 50% 8%
+background-size: 50%
+background-color: #ffffff
+
+# `r rmarkdown::metadata$title`
+
+### `r rmarkdown::metadata$author` 
+
+### `r rmarkdown::metadata$date`
+
+---
+
+# Extra slides
+
+
+
+# Spatial interpolation
+
+We want to predict the VOCs concentration at unobserved locations $\boldsymbol{Y^u_{j}}$, using the information from the observed locations $\boldsymbol{Y_{j}}$. 
+
+The joint distribution of $\boldsymbol{Y^u_{j}}$ and $\boldsymbol{Y_{j}}$, is given by,
+
+
+where $\boldsymbol{\mu_j^u}$ and $\boldsymbol{\mu_j}$ are the means of the unobserved and observed sites respectively; $\boldsymbol{\Sigma_j^u}$ is the covariance matrix among unobserved sites, and $\boldsymbol{\Psi_j}$ is the covariance matrix between observed and unobserved sites.
+
+---
+
+# Spatial interpolation
+
+From the properties of the partition of the multivariate normal distribution, we can sample from,
+
+$$(\boldsymbol{Y^u_{j}} |\boldsymbol{Y_{j}}, \boldsymbol{\theta}) \sim N(\mu^u_j + \boldsymbol{\Psi} \boldsymbol{\Sigma}_j^{-1}(\boldsymbol{Y}_j - \mu); \boldsymbol{\Sigma}^u_j - \boldsymbol{\Psi}'\boldsymbol{\Sigma}_j^{-1}\boldsymbol{\Psi})).$$
+where $\boldsymbol{\theta}$ is the corresponding parameter vector for each model.
+
+--
+
+For models 2 and 4 where there is no spatial component, this distribution is reduced to
+
+$$(\boldsymbol{Y^u_{j}} |\boldsymbol{Y_{j}}, \boldsymbol{\theta}) \sim N(\boldsymbol{\mu}_j^u, \boldsymbol{\Sigma}_j^u).$$
+ where $\boldsymbol{\Sigma}_j^u$ is a diagonal matrix.
+
+---
+
+# Inference procedure VOCs
+
+# Inference procedure
+
+- Under the Bayesian paradigm, model specification is complete after assigning a prior distribution to the parameter vector. 
+
+--
+- In models 1 and 2, $\boldsymbol{\alpha}$ and $\boldsymbol{\beta}$ follow a normal distribution with zero mean and large variance.
+
+--
+- For models 3 and 4 $\boldsymbol{\beta}_j \sim \mathcal{N}(\gamma, \psi^2)$ where $\gamma \sim \mathcal{N}(0, 10)$ and $\psi^2 \sim InvGamma(2, 1)$
+
+--
+
+
+- In models 1 and 3 $\sigma^2$  and $\tau^2$ follow an inverse gamma prior with mean fixed at 1 and an infinite variance.
+
+--
+
+-  For the spatial range $\phi_j$ we assigned an exponential prior with mean equal to the practical range.
+
+---
+
+- For all fitted models, the resultant posterior distribution does not have a closed form.
+
+- Inference was performed using Markov Chain Monte Carlo methods to obtain samples from the posterior distribution implemented in Nimble.
+
+---
+
+
+$$\mu_t(s) = \alpha x(s) + \beta z_t + \gamma v_t(s) + \theta_t,$$
+          		                 	
+where,$\theta_t$ is a time-varying mean which will capture the weekly overall temporal mean across sites and it follows
+
+$$\theta_t = \theta_{t-1} + \omega_t$$
+where $\omega_t(s) \sim N(0, W)$.
+
+--
+
+- $x(s)$  is a vector containing the spatial covariates: easting, northing, bare ground, commercial, industrial,  majorroads, grass cover, tree cover.
+
+--
+
+- $z_t$ is a vector containing the climatic covariates: precipitation, temperature, and humidity.
+
+--
+
+- $v_t(s)$ is a vector containing the TC brightness and TC greenness for each site $s$ at each time $t$.
+
+
