@@ -2,7 +2,7 @@
 title: "Land-use regression and spatio-temporal hierarchical models for environmental processes"
 author: "Sara Zapata-Marin"
 supervisor: "Dr Alexandra M. Schmidt"
-date: "June 8th"
+date: "June 8"
 output:
   xaringan::moon_reader:
     css: ["default", "css/grayscale.css", "css/fonts.css"]
@@ -66,7 +66,7 @@ background-size: contain
 
 - Introduction
 
-- Spatial modelling of ambient concentrations of VOCs in Montreal, Canada (Manuscript 1)
+- Spatial modelling of ambient concentrations of Volatile Organic Compounds in Montreal, Canada (Manuscript 1)
 
 - Spatio-temporal modelling of pollen concentration in Toronto, Canada (Manuscripts 2 and 3)
 
@@ -81,6 +81,14 @@ background-size: contain
 ---
 
 # Introduction
+
+- Exposures to VOCs can cause irritation of the eyes and upper respiratory tract,  effects on the central  nervous system and some have been identified as carcinogens.
+
+--
+
+- The exacerbation of asthma and respiratory allergies has been associated with exposure to aeroallergens such as pollen.
+
+--
 
 - The distribution of air pollutants and aeroallergens can be provided as estimates of exposure for epidemiological studies.
 
@@ -97,7 +105,7 @@ background-size: contain
 class: center, montreal-slide, inverse
 
 
-> Spatial modelling of ambient concentrations of VOCs in  Montreal, Canada
+> Spatial modelling of ambient concentrations of Volatile Organic Compounds (VOCs) in  Montreal, Canada
 
 .footnote[Photo by Myriah Haggard]
 
@@ -115,26 +123,26 @@ class: left, top
 
 - Sampling campaigns: 
 
-  - **December 2005** (cold weather), 
-  - **April 2006** (moderate weather), 
-  - and **August 2006** (hot weather).
+  - .remark-code-line-highlighted[December 2005] (cold weather), 
+  - .remark-code-line-highlighted[April 2006] (moderate weather), 
+  - and .remark-code-line-highlighted[August 2006] (hot weather).
 
 --
 
-- Local variables(open areas, residential, industrial, roads, etc), average and total NOx, total daily traffic volume and population density.
+- Local variables (open areas, residential, industrial, roads, etc.), average and total NOx, total daily traffic volume and population density.
 
 
 --
 
-- There were **133** monitoring locations for the December and April campaigns, and **131** for the August campaign.
+- There were .remark-code-line-highlighted[133] monitoring locations for the December and April campaigns, and .remark-code-line-highlighted[131] for the August campaign.
 
 ---
 
 # Objectives 
 
-1. Determine the **spatial distribution** of ambient concentrations using land-use regression + geostatistical methods.
+1. Determine the .remark-code-line-highlighted[spatial distribution] of ambient concentrations using land-use regression + geostatistical methods.
 
-2. Develop predicted surfaces to link with residential addresses of participants in **cancer case-control studies**, and estimate risks associated with these exposures.
+2. Develop .remark-code-line-highlighted[predicted surfaces] to link with residential addresses of participants in cancer case-control studies, and estimate risks associated with these exposures.
 
 
 
@@ -144,41 +152,38 @@ class: left, top
 
 
 ** Base model **
-$$\Large Y_j(s) = \boldsymbol{Z}_j \boldsymbol{\alpha} + \boldsymbol{X}'(s)\boldsymbol{\beta}_j + \epsilon_j(s) + \omega_j (s) $$
+$$\Large Y_j(s) = Z_j'\alpha_j + \boldsymbol{X}'(s)\boldsymbol{\beta}_j  + \omega_j (s) + \epsilon_j(s) $$
 --
 
-- $\boldsymbol{Z}_j$ is an indicator variable representing each campaign 
-
---
-
-- $\boldsymbol{\alpha}$ is the coefficient associated with this indicator variable 
-
---
-
-- The measurement error $\epsilon_j(s) \sim \mathcal{N}(0, \tau^2)$ where $\tau^2$ is know as the nugget effect,
+- $Z_j$ is an indicator variable representing each .remark-code-line-highlighted[campaign] with $Z_1 = 0$
 
 --
 
 - The latent spatial structure is $\large \boldsymbol{\omega}_j \sim \mathcal{N}(0, \sigma^2_j\exp(-d/\phi_{j}))$ where $\large \sigma^2_j$ is the partial sill, $\large d$ is an Euclidean distance matrix, and $\large \phi_j$ is the spatial range at each campaign $j$
 
+--
+
+- The measurement error $\epsilon_j(s) \sim \mathcal{N}(0, \tau^2)$ where $\tau^2$ is known as the nugget effect,
+
+
 ---
 
 # Methods
 
 ** Base model **
 
-$$\Large Y_j(s) = \boldsymbol{Z}_j \boldsymbol{\alpha} + \boldsymbol{X}'(s)\boldsymbol{\beta}_j +\epsilon_j(s) + \omega_j (s) $$
+$$\Large Y_j(s) = Z_j'\alpha_j + \boldsymbol{X}'(s)\boldsymbol{\beta}_j +\epsilon_j(s) + \omega_j (s) $$
 
 
 .panelset[
 .panel[.panel-name[Model 1]
 
-$$\Large Y_j(s) = \boldsymbol{Z}_j \boldsymbol{\alpha} + \boldsymbol{X}'(s)\boldsymbol{\beta} + \epsilon_j(s) + \omega_j (s) $$
+$$\Large Y_j(s) = Z_j' \alpha_j + \boldsymbol{X}'(s)\boldsymbol{\beta} + \epsilon_j(s) + \omega_j (s) $$
 ]
 
 .panel[.panel-name[Model 2]
 
-$$\huge Y_j(s) = \boldsymbol{Z}_j \boldsymbol{\alpha} + \boldsymbol{X}'(s)\boldsymbol{\beta} + \epsilon_j(s)$$
+$$\huge Y_j(s) = Z_j'\alpha_j + \boldsymbol{X}'(s)\boldsymbol{\beta} + \epsilon_j(s)$$
 ]
 
 
@@ -233,7 +238,6 @@ leaflet(height=500,width=800) %>% # Base group: OpenStreetMap map tiles
   addLegend(pal = pal, values = rbind(values(dec_tmb), values(apr_tmb), values(aug_tmb)),
             title = "1,2,4-Tmb concentration log") %>% hideGroup(c("April", "August"))
 
-
 ```
 
 
@@ -241,19 +245,23 @@ leaflet(height=500,width=800) %>% # Base group: OpenStreetMap map tiles
 
 # Conclusions
 
-- Highest concentrations during the **December** campaign. 
+- Highest concentrations during the .remark-code-line-highlighted[December] campaign. 
 
 --
 
-- For **benzene**, the highest levels were predicted in an area with oil refineries operating at the time of the study.
+- For .remark-code-line-highlighted[benzene], the highest levels were predicted in an area with oil refineries operating at the time of the study.
 
 --
 
-- For **n-decane** the highest levels were predicted for sections of a major highway (AutoRoute 40). 
+- For .remark-code-line-highlighted[n-decane] the highest levels were predicted for sections of a major highway (AutoRoute 40). 
 
 --
 
-- For **1,2,4-trimethylbenzene**, the highest levels corresponded to multiple sections of several highways, and parts of Autoroute 15.
+- For .remark-code-line-highlighted[1,2,4-trimethylbenzene], the highest levels corresponded to multiple sections of several highways, and parts of Autoroute 15.
+
+--
+
+- The fitted models accounted for possible .remark-code-line-highlighted[variations across campaigns] in the concentration of air pollutants.
 
 ---
 
@@ -264,7 +272,7 @@ class: center, toronto-slide, inverse
 
 ---
 
-background-image: url("img/map_locations.png")
+background-image: url("img/locations.png")
 background-position: right
 background-size: 50%
 
@@ -272,13 +280,13 @@ background-size: 50%
 
 # Data
 
-- Daily and weekly measurements of pollen and spores concentration in Toronto (18 sites), for: grass pollen, weed pollen, tree pollen and spores.
+- .remark-code-line-highlighted[Daily and weekly measurements] of pollen concentration in Toronto, for: grass pollen, weed pollen, tree pollen and total pollen.
 
 
-- Local variables: distance to highways, road land use, buildings land use, tree canopy, NDVI, TC greenness and TC brightness.
+- .remark-code-line-highlighted[Local variables:] distance to highways, road land use, buildings land use, etc.
 
 
-- Climatic variables: temperature, precipitation, humidity, wind speed and direction.
+- .remark-code-line-highlighted[Weather-related variables:] temperature, precipitation, humidity, wind speed and direction.
 
 ]
 
@@ -290,14 +298,14 @@ background-size: 50%
 
 ## Univariate model (Manuscript 2)
 
-- Estimate the local variation of aeroallergens accounting for the high number of zeros.
-Determine which environmental and climatic factors are associated with their concentration.
+- Estimate the local variation of pollen .remark-code-line-highlighted[accounting for the high number of zeros].
+Determine which .remark-code-line-highlighted[environmental and climatic factors are associated] with their concentration.
 
 --
 
 ## Temporal misalignment (Manuscript 3)
 
-- Propose a model that accounts for the fact that there are weekly and daily measurements.
+- Propose a model to account for the fact that there are .remark-code-line-highlighted[weekly and daily measurements].
 
 ---
 
@@ -322,10 +330,10 @@ background-size: contain
 To account for the high number of zeros we propose a Hurdle-log-normal model which is a mixture between a Bernoulli distribution and a log-normal distribution defined as,
 
 $$\begin{split}p(y_t(s) \mid \rho_t(s), \lambda_t(s)) = \begin{cases}
-\rho_t(s) & y_t(s) = 0 \\\
-(1−\rho_t(s))p(y_t(s)) \mid  \lambda_t(s)) & y_t(s) >  0 \end{cases},\end{split}$$
+&\rho_t(s) & y_t(s) = 0, \\
+&(1−\rho_t(s))p(y_t(s) \mid  \lambda_t(s)) & y_t(s) >  0, \end{cases}\end{split}$$
 
-- where $y_t(s)$ is the pollen concentration at week $t$ and location $s$. 
+where $y_t(s)$ is the pollen concentration at week $t$ and location $s$. 
 
 - The positive values follow a lognormal distribution with parameters $\mu_t(s)$ and $\sigma^2$,
 
@@ -338,35 +346,34 @@ Where $\mu_t(s)$ is defined as,
 
 
 $$\mu_t(s) = \boldsymbol{\alpha}\boldsymbol{x}(s) + \boldsymbol{\beta}\boldsymbol{u_t}(s) + \boldsymbol{\gamma} \boldsymbol{z}_t + \theta_t$$
+--
+
+- $\boldsymbol{x}(s)$  is a vector of .remark-code-line-highlighted[spatial covariates]
+
+--
+
+- $\boldsymbol{u}_t(s)$ is a vector containing a .remark-code-line-highlighted[vegetation] measurement (TC greenness) and a .remark-code-line-highlighted[ground composition] measurement (TC brightness) for each site $s$ at each time $t$.
+
+--
+
+- $\boldsymbol{z}_t$ is a vector of .remark-code-line-highlighted[weather-related covariates]
+
+--
           		                 	
-where, $\theta_t$ is a time-varying mean which will capture the weekly overall temporal mean across sites and it follows
+- $\theta_t$ is a .remark-code-line-highlighted[time-varying mean] which will capture the weekly overall temporal mean across sites and it follows
 
 $$\theta_t = \theta_{t-1} + \omega_t , \qquad  \omega_t(s) \sim N(0, W)$$
-
-
---
-
-- $x(s)$  is a vector of **spatial covariates**: easting, northing, bare ground, commercial, industrial,  majorroads, grass cover, tree cover.
-
---
-
-- $u_t(s)$ is a vector containing the **TC brightness** and **TC greenness** for each site $s$ at each time $t$.
-
---
-
-- $z_t$ is a vector of **climatic covariates**: precipitation, temperature, and humidity.
-
 ---
  
-# Results
+# Probability and state vector
 
-```{r echo=FALSE, out.width='80%'}
-knitr::include_graphics("img/Figure5.png")
+```{r echo=FALSE, out.width='90%'}
+knitr::include_graphics("img/Figure5_v2.png")
 ```
 
 ---
 
-# Results
+# Predicted surface
  
 ![your caption here](img/total.gif)
 
@@ -391,9 +398,10 @@ background-size: contain
 
 # Methods
 
-Let the log of the total pollen concentration $\boldsymbol{Y}_t$ be a stochastic process in discrete time $t$ at location $s \in D$, follow a multivariate normal distribution with mean,
+Let $\{Y_t(s); s \in \mathbb{R}^d; t = 1,\cdots, T\}$ be a spatio-temporal process such that
+$\boldsymbol{Y}_t = (Y_t(s_1), \cdots, Y_t(s_n))'$, we assume that $\boldsymbol{Y}_t \sim N(\boldsymbol{\mu}_t, \boldsymbol{\Sigma})$ where,
 
-$$\mu_t = \bf{F}'_t\boldsymbol{\theta}_t+\boldsymbol{X\beta}$$
+$$\boldsymbol{\mu}_t = \bf{F}'_t\boldsymbol{\theta}_t+\boldsymbol{X'\beta}$$
 where the state equation is defined as,
 
 $$\boldsymbol{\theta}_t = \bf{G}_t\boldsymbol{\theta}_{t-1} + \boldsymbol{\omega}_t \qquad \boldsymbol{\omega}_t \sim N(0, \boldsymbol{W})$$
@@ -402,17 +410,41 @@ $$\boldsymbol{\theta}_t = \bf{G}_t\boldsymbol{\theta}_{t-1} + \boldsymbol{\omega
 
 - $\boldsymbol{F}_t$ is a known $q \times n$ matrix containing temporal covariates,
 
+- $\boldsymbol{G}_t$ is a $q \times q$ evolution matrix,
+
+
 - $\boldsymbol{X}$ is a matrix containing all land-use covariates and coordinates of the sites,
 
-- $\boldsymbol{G}_t$ is a $q \times q$ evolution matrix.
+- $\boldsymbol{\Sigma} = \sigma^2exp(-\boldsymbol{d}/\phi) + \tau^2\boldsymbol{I}$, where $\sigma^2$ is the partial sill, $\phi$ is the spatial range, and $\tau^2$ is the nugget effect.
 
 ---
 
 # Methods
 
-Based on conditional independence on $Y_t(s)$, the aggregated measurements are defined as,
+Let $\{Y_t(s); s \in \mathbb{R}^d; t = 1,\cdots, T\}$ be a spatio-temporal process such that
+$\boldsymbol{Y}_t = (Y_t(s_1), \cdots, Y_t(s_n))'$, we assume that $\boldsymbol{Y}_t \sim N(\boldsymbol{\mu}_t, \boldsymbol{\Sigma})$ where,
 
-$$\boldsymbol{Z}_k = \dfrac{1}{r}\sum^r_{i=1}\boldsymbol{Y}_{rk+i} \sim N(\dfrac{1}{r}\sum^r_{i=1}\boldsymbol{\mu}_{rk+i}, \dfrac{1}{r}\boldsymbol{\Sigma})$$
+$$\boldsymbol{\mu}_t = \bf{F}'_t\boldsymbol{\theta}_t+\boldsymbol{X\beta}$$
+
+Based on conditional independence on $\boldsymbol{Y}_t$, the aggregated measurements are defined as,
+
+$$\boldsymbol{Z}_k = \dfrac{1}{r}\sum^r_{i=1}\boldsymbol{Y}_{rk+i} \sim N\left(\dfrac{1}{r}\sum^r_{i=1}\boldsymbol{\mu}_{rk+i}, \dfrac{1}{r}\boldsymbol{\Sigma}\right)$$
+
+---
+
+# Methods
+
+Using the properties of the multivariate normal distribution it is possible to obtain:
+
+- fine-scale measurements at aggregated sites,
+
+--
+
+- fine-scale measurements at unobserved sites,
+
+--
+
+- and the aggregated values at unobserved sites.
 
 ---
 
@@ -424,24 +456,28 @@ knitr::include_graphics("img/coeff_estimates.png")
 
 ---
 
-# Results
+## Aggregated estimated daily values at the weekly sites
 
 ```{r echo=FALSE, out.width='80%'}
 knitr::include_graphics("img/weekly_modelled.png")
 ```
 
+---
 
+# Predicted surface
+
+![your caption here](img/outfile.gif)
 ---
 
 # Conclusions
 
 --
 
-- Our proposed model accounted for the complex structure of the data, allowing for temporal correlation in the mean structure and using land use variables to accommodate local information of the measurements.
+- We analyzed spatiotemporal variations in aeroallergen concentrations throughout the pollen season for different types of pollen within a city.
 
 --
 
-- We were able to propose a model to account for the temporal misalignment in the data.
+- We were able to propose a model to account for the .remark-code-line-highlighted[temporal misalignment] in the data.
 
 --
 
@@ -449,7 +485,13 @@ knitr::include_graphics("img/weekly_modelled.png")
 
 --
 
-- We found different estimates for the fixed effects depending on the temporal scale.
+- We found different estimates for the fixed effects depending on the .remark-code-line-highlighted[temporal scale].
+
+--
+
+- The predicted surfaces will help .remark-code-line-highlighted[future epidemiological studies] to find possible associations between pollen levels and some health outcome like respiratory allergies.
+
+--
 
 ---
 class: inverse
@@ -460,7 +502,11 @@ class: inverse
 
 --
 
-- This work shows how by considering a spatial or spatio-temporal structure, it is possible to obtain additional information on the **spatial patterns** and the **temporal dynamics** of aeroallergens and air pollutants dispersion. 
+- This work shows how by considering a spatial or spatio-temporal structure, it is possible to learn about the spatial patterns and the temporal dynamics of aeroallergens and air pollutants dispersion. 
+
+--
+
+- The results obtained in this work will be used in future health studies.
 
 ---
 
@@ -478,46 +524,62 @@ class: center, right, inverse
 ---
 
 
-class: center, right, inverse
+class: center, left, inverse
 
 # Acknowledgements 
 
 .pull-left[
+.pull-left[
 
-Alexandra M. Schmidt
+Alex Schmidt
+
+Celia Greenwood <br />
+Alexander DeGuise 
 
 Mark Goldberg  <br /> 
+Eric Lavigne <br />
+Erica Moodie <br />
 Scott Weichenthal <br /> 
-Eric Lavigne  <br />
-Dan Crouse <br />
-Vikki Hod <br />
-France Labrèche <br />
-Marie-Élise Parent <br />
-Liu Sun <br />
-Daniel S.W. Katz <br />
-Tim Takaro <br />
-Jeffrey Brook <br />
-Marianne Hatzopoulou <br />
-Jad Zalzal 
 
 ]
 
 .pull-right[
 
-Selin Jessa <br />
-Alex Diaz-Papkovich <br />
+Dan Crouse <br />
+Vikki Hod <br />
+France Labrèche <br />
+Marie-Élise Parent <br />
+Liu Sun <br />
+
+Jeffrey Brook <br />
+Marianne Hatzopoulou <br />
+Daniel S.W. Katz 
+Tim Takaro <br />
+Jad Zalzal 
+]
+
+]
+
+.pull-right[
+
+.pull-left[
 Jeffrey Hyacinthe <br />
 Matt D’Iorio <br />
+Selin Jessa <br />
+Alex Diaz-Papkovich <br />
 Yixiao Zeng <br />
-Victoire Michal <br />
+
 Dirk Douwes-Schultz <br />
-Marco Rodriguez  <br />
-Celia Greenwood <br />
-Alexander DeGuise  <br />
+Victoire Michal <br />
+Marco Rodriguez  
+]
+
+.pull-right[
+
 My parents <br />
 Santiago <br />
 Myriah Haggard <br />
 Mariana Carmona
-
+]
 ]
 
